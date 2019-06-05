@@ -38,8 +38,8 @@ docker run -p 8080:8080 solo-service
 ```
 You should see the following message on your screen:
 ```bash
-2019/06/05 03:54:00 Shutting down... 
-2019/06/05 03:54:00 Stopped serving solo service at http://[::]:8080
+2019/06/05 04:42:46 starting server...
+2019/06/05 04:42:46 Serving solo service at http://[::]:8080
 ```
 This means the server is now up and running locally and exposed through 8080 port.
 
@@ -94,9 +94,9 @@ The API specification is built out to handle iso_currency_code to be future proo
 Since I wanted to accomodate for different currency types in the future, it did not make sense to represent currency amount as an integer (as cents). Conversion between currency codes will result in precision lost, so I opted to use float64 to capture as much precision as possible.
 
 # Nice To Have
-If I had more time, I would try to accomplish the follow:
+If I had more time, I would try to accomplish the following:
 1) generate an entity relationship diagram to demonstrate how the different tables connect with each other.
 2) Write unit tests for coverage
 3) Implemented currency model (iso_currency_code + amount)
 4) Allow multiple co-borrowers to allow borrowers to bump up their SoLo score
-5) Opted for a real relational database (PostgreSQL) and create a docker-compose file with schema migrations
+5) Opt for a real relational database (PostgreSQL) and create a docker-compose file with schema migrations
