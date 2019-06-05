@@ -17,7 +17,7 @@ Response objects can be view inside OpenAPI Specifications:
 
 You can load swagger editor and copy/paste the json blob into it for a more user friendly view:
 
-copy raw contents in : https://github.com/kluucreations/solo-service/blob/master/swagger/api.json
+copy raw contents in : https://raw.githubusercontent.com/kluucreations/solo-service/master/swagger/api.json
 paste body into swagger editor and convert to yml:  https://editor.swagger.io/
 
 
