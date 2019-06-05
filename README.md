@@ -5,13 +5,17 @@ SoLo Service is an HTTP API server written in Go.
 This service depends on a database for persistence storage. For developmental purposes, I'm using sqlite3.
 
 # Assignment
-You can view the SQL Queries here
+You can view the SQL Queries and DAO here:
 1) https://github.com/kluucreations/solo-service/blob/master/internal/datastore/loan.go#L22
 2) https://github.com/kluucreations/solo-service/blob/master/internal/datastore/payment.go
 
 Explanation: 
 
 I created a join table (lender_loans) to allow RDS to enforce data integrity. By creating a unique constraint on lender_loan.loan_id we can enforce that a loan can only ever be assigned to one lender.
+
+Response objects can be view inside OpenAPI Specifications:
+
+https://github.com/kluucreations/solo-service/blob/master/swagger/api.json
 
 
 # Installation
