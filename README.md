@@ -77,7 +77,8 @@ You can spin up the local SQLite3 server by installing ```sqlite3``` and running
 sqlite3 internal/datastore/solo.db
 ```
 I have also extracted the schema as a SQL file so it can be easily inspected.
-https://github.com/kluucreations/solo-service/tree/master/internal/schema
+
+https://github.com/kluucreations/solo-service/blob/master/internal/datastore/schema.sql
 
 
 ## Currency
@@ -86,4 +87,8 @@ The API specification is built out to handle iso_currency_code to be future proo
 Since I wanted to accomodate for different currency types in the future, it did not make sense to represent currency amount as an integer (as cents). Conversion between currency codes will result in precision lost, so I opted to use float64 to capture as much precision as possible.
 
 # Nice To Have
-If I had more time, I would try to generate an entity relationship diagram to demonstrate how the different tables connect with each other.
+If I had more time, I would try to accomplish the follow:
+1) generate an entity relationship diagram to demonstrate how the different tables connect with each other.
+2) Write unit tests for coverage
+3) Implemented currency model (iso_currency_code + amount)
+4) Allow multiple co-borrowers to allow borrowers to bump up their SoLo score
