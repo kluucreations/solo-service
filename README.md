@@ -76,14 +76,14 @@ You can spin up the local SQLite3 server by installing ```sqlite3``` and running
 ```bash
 sqlite3 internal/datastore/solo.db
 ```
-I have also extracted the schema in CSV format so it can be easily inspected.
+I have also extracted the schema as a SQL file so it can be easily inspected.
 https://github.com/kluucreations/solo-service/tree/master/internal/schema
 
-SQLite3 lacks Foreign key constraints and formal Time representation.
-If I had more time, I would fully define all the relationship. I believe the FK columns are pretty self-explained as they all end in *_id .
 
 ## Currency
 I wanted to allow customers to specify what kind of currency they wanted to accept.
 The API specification is built out to handle iso_currency_code to be future proof. This feature is not fully implemented yet.
 Since I wanted to accomodate for different currency types in the future, it did not make sense to represent currency amount as an integer (as cents). Conversion between currency codes will result in precision lost, so I opted to use float64 to capture as much precision as possible.
 
+# Nice To Have
+If I had more time, I would try to generate an entity relationship diagram to demonstrate how the different tables connect with each other.
