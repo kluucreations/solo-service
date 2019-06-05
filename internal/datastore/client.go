@@ -1,8 +1,14 @@
 package datastore
 
-type datastore struct{}
+import "database/sql"
 
-type Datastore interface{}
+type datastore struct {
+	sql.DB
+}
+
+type Datastore interface {
+	GetPayments(loanID int64) ([]Payment, error)
+}
 
 func NewClient() Datastore {
 	return datastore{}

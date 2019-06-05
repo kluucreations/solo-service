@@ -13,13 +13,13 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Amount amount
+// Amount Amount object
 // swagger:model amount
 type Amount struct {
 
 	// amount
 	// Required: true
-	Amount *string `json:"amount"`
+	Amount *float64 `json:"amount"`
 
 	// iso currency code
 	// Required: true

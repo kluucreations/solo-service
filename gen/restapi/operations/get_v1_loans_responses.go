@@ -16,7 +16,7 @@ import (
 // GetV1LoansOKCode is the HTTP code returned for type GetV1LoansOK
 const GetV1LoansOKCode int = 200
 
-/*GetV1LoansOK get v1 loans o k
+/*GetV1LoansOK Success
 
 swagger:response getV1LoansOK
 */
@@ -58,4 +58,52 @@ func (o *GetV1LoansOK) WriteResponse(rw http.ResponseWriter, producer runtime.Pr
 		panic(err) // let the recovery middleware deal with this
 	}
 
+}
+
+// GetV1LoansForbiddenCode is the HTTP code returned for type GetV1LoansForbidden
+const GetV1LoansForbiddenCode int = 403
+
+/*GetV1LoansForbidden Authorized user is not a Lender.
+
+swagger:response getV1LoansForbidden
+*/
+type GetV1LoansForbidden struct {
+}
+
+// NewGetV1LoansForbidden creates GetV1LoansForbidden with default headers values
+func NewGetV1LoansForbidden() *GetV1LoansForbidden {
+
+	return &GetV1LoansForbidden{}
+}
+
+// WriteResponse to the client
+func (o *GetV1LoansForbidden) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(403)
+}
+
+// GetV1LoansInternalServerErrorCode is the HTTP code returned for type GetV1LoansInternalServerError
+const GetV1LoansInternalServerErrorCode int = 500
+
+/*GetV1LoansInternalServerError Server Error
+
+swagger:response getV1LoansInternalServerError
+*/
+type GetV1LoansInternalServerError struct {
+}
+
+// NewGetV1LoansInternalServerError creates GetV1LoansInternalServerError with default headers values
+func NewGetV1LoansInternalServerError() *GetV1LoansInternalServerError {
+
+	return &GetV1LoansInternalServerError{}
+}
+
+// WriteResponse to the client
+func (o *GetV1LoansInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(500)
 }

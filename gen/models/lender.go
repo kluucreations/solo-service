@@ -13,9 +13,9 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// User user
-// swagger:model user
-type User struct {
+// Lender Lender model
+// swagger:model lender
+type Lender struct {
 
 	// created at
 	// Required: true
@@ -40,17 +40,13 @@ type User struct {
 	// middle name
 	MiddleName string `json:"middle_name,omitempty"`
 
-	// score
-	// Required: true
-	Score *float64 `json:"score"`
-
 	// updated at
 	// Required: true
 	UpdatedAt *string `json:"updated_at"`
 }
 
-// Validate validates this user
-func (m *User) Validate(formats strfmt.Registry) error {
+// Validate validates this lender
+func (m *Lender) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreatedAt(formats); err != nil {
@@ -73,10 +69,6 @@ func (m *User) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
-	if err := m.validateScore(formats); err != nil {
-		res = append(res, err)
-	}
-
 	if err := m.validateUpdatedAt(formats); err != nil {
 		res = append(res, err)
 	}
@@ -87,7 +79,7 @@ func (m *User) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *User) validateCreatedAt(formats strfmt.Registry) error {
+func (m *Lender) validateCreatedAt(formats strfmt.Registry) error {
 
 	if err := validate.Required("created_at", "body", m.CreatedAt); err != nil {
 		return err
@@ -96,7 +88,7 @@ func (m *User) validateCreatedAt(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *User) validateFirstName(formats strfmt.Registry) error {
+func (m *Lender) validateFirstName(formats strfmt.Registry) error {
 
 	if err := validate.Required("first_name", "body", m.FirstName); err != nil {
 		return err
@@ -105,7 +97,7 @@ func (m *User) validateFirstName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *User) validateGUID(formats strfmt.Registry) error {
+func (m *Lender) validateGUID(formats strfmt.Registry) error {
 
 	if err := validate.Required("guid", "body", m.GUID); err != nil {
 		return err
@@ -114,7 +106,7 @@ func (m *User) validateGUID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *User) validateID(formats strfmt.Registry) error {
+func (m *Lender) validateID(formats strfmt.Registry) error {
 
 	if err := validate.Required("id", "body", m.ID); err != nil {
 		return err
@@ -123,7 +115,7 @@ func (m *User) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *User) validateLastName(formats strfmt.Registry) error {
+func (m *Lender) validateLastName(formats strfmt.Registry) error {
 
 	if err := validate.Required("last_name", "body", m.LastName); err != nil {
 		return err
@@ -132,16 +124,7 @@ func (m *User) validateLastName(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *User) validateScore(formats strfmt.Registry) error {
-
-	if err := validate.Required("score", "body", m.Score); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *User) validateUpdatedAt(formats strfmt.Registry) error {
+func (m *Lender) validateUpdatedAt(formats strfmt.Registry) error {
 
 	if err := validate.Required("updated_at", "body", m.UpdatedAt); err != nil {
 		return err
@@ -151,7 +134,7 @@ func (m *User) validateUpdatedAt(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *User) MarshalBinary() ([]byte, error) {
+func (m *Lender) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -159,8 +142,8 @@ func (m *User) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *User) UnmarshalBinary(b []byte) error {
-	var res User
+func (m *Lender) UnmarshalBinary(b []byte) error {
+	var res Lender
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

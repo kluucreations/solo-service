@@ -16,7 +16,7 @@ import (
 // GetV1LoanLoanIDPaymentsOKCode is the HTTP code returned for type GetV1LoanLoanIDPaymentsOK
 const GetV1LoanLoanIDPaymentsOKCode int = 200
 
-/*GetV1LoanLoanIDPaymentsOK get v1 loan loan Id payments o k
+/*GetV1LoanLoanIDPaymentsOK Success
 
 swagger:response getV1LoanLoanIdPaymentsOK
 */
@@ -63,7 +63,7 @@ func (o *GetV1LoanLoanIDPaymentsOK) WriteResponse(rw http.ResponseWriter, produc
 // GetV1LoanLoanIDPaymentsForbiddenCode is the HTTP code returned for type GetV1LoanLoanIDPaymentsForbidden
 const GetV1LoanLoanIDPaymentsForbiddenCode int = 403
 
-/*GetV1LoanLoanIDPaymentsForbidden get v1 loan loan Id payments forbidden
+/*GetV1LoanLoanIDPaymentsForbidden Loan is not assigned to authorized Lender
 
 swagger:response getV1LoanLoanIdPaymentsForbidden
 */
@@ -87,7 +87,7 @@ func (o *GetV1LoanLoanIDPaymentsForbidden) WriteResponse(rw http.ResponseWriter,
 // GetV1LoanLoanIDPaymentsNotFoundCode is the HTTP code returned for type GetV1LoanLoanIDPaymentsNotFound
 const GetV1LoanLoanIDPaymentsNotFoundCode int = 404
 
-/*GetV1LoanLoanIDPaymentsNotFound get v1 loan loan Id payments not found
+/*GetV1LoanLoanIDPaymentsNotFound Loan not found.
 
 swagger:response getV1LoanLoanIdPaymentsNotFound
 */
@@ -106,4 +106,28 @@ func (o *GetV1LoanLoanIDPaymentsNotFound) WriteResponse(rw http.ResponseWriter, 
 	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
 
 	rw.WriteHeader(404)
+}
+
+// GetV1LoanLoanIDPaymentsInternalServerErrorCode is the HTTP code returned for type GetV1LoanLoanIDPaymentsInternalServerError
+const GetV1LoanLoanIDPaymentsInternalServerErrorCode int = 500
+
+/*GetV1LoanLoanIDPaymentsInternalServerError Server Error
+
+swagger:response getV1LoanLoanIdPaymentsInternalServerError
+*/
+type GetV1LoanLoanIDPaymentsInternalServerError struct {
+}
+
+// NewGetV1LoanLoanIDPaymentsInternalServerError creates GetV1LoanLoanIDPaymentsInternalServerError with default headers values
+func NewGetV1LoanLoanIDPaymentsInternalServerError() *GetV1LoanLoanIDPaymentsInternalServerError {
+
+	return &GetV1LoanLoanIDPaymentsInternalServerError{}
+}
+
+// WriteResponse to the client
+func (o *GetV1LoanLoanIDPaymentsInternalServerError) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.Header().Del(runtime.HeaderContentType) //Remove Content-Type on empty responses
+
+	rw.WriteHeader(500)
 }

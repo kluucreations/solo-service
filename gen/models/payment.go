@@ -15,13 +15,17 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Payment payment
+// Payment Payment model
 // swagger:model payment
 type Payment struct {
 
 	// amount
 	// Required: true
 	Amount *Amount `json:"amount"`
+
+	// borrower
+	// Required: true
+	Borrower *Borrower `json:"borrower"`
 
 	// breakdown
 	// Required: true
@@ -40,17 +44,13 @@ type Payment struct {
 	// Required: true
 	ID *int64 `json:"id"`
 
+	// lender
+	// Required: true
+	Lender *Lender `json:"lender"`
+
 	// loan id
 	// Required: true
 	LoanID *int64 `json:"loan_id"`
-
-	// payee
-	// Required: true
-	Payee *User `json:"payee"`
-
-	// payer
-	// Required: true
-	Payer *User `json:"payer"`
 
 	// payment at
 	// Required: true
@@ -75,6 +75,10 @@ func (m *Payment) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateBorrower(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateBreakdown(formats); err != nil {
 		res = append(res, err)
 	}
@@ -91,15 +95,11 @@ func (m *Payment) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateLender(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateLoanID(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePayee(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validatePayer(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -131,6 +131,24 @@ func (m *Payment) validateAmount(formats strfmt.Registry) error {
 		if err := m.Amount.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("amount")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Payment) validateBorrower(formats strfmt.Registry) error {
+
+	if err := validate.Required("borrower", "body", m.Borrower); err != nil {
+		return err
+	}
+
+	if m.Borrower != nil {
+		if err := m.Borrower.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("borrower")
 			}
 			return err
 		}
@@ -195,46 +213,28 @@ func (m *Payment) validateID(formats strfmt.Registry) error {
 	return nil
 }
 
+func (m *Payment) validateLender(formats strfmt.Registry) error {
+
+	if err := validate.Required("lender", "body", m.Lender); err != nil {
+		return err
+	}
+
+	if m.Lender != nil {
+		if err := m.Lender.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("lender")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (m *Payment) validateLoanID(formats strfmt.Registry) error {
 
 	if err := validate.Required("loan_id", "body", m.LoanID); err != nil {
 		return err
-	}
-
-	return nil
-}
-
-func (m *Payment) validatePayee(formats strfmt.Registry) error {
-
-	if err := validate.Required("payee", "body", m.Payee); err != nil {
-		return err
-	}
-
-	if m.Payee != nil {
-		if err := m.Payee.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("payee")
-			}
-			return err
-		}
-	}
-
-	return nil
-}
-
-func (m *Payment) validatePayer(formats strfmt.Registry) error {
-
-	if err := validate.Required("payer", "body", m.Payer); err != nil {
-		return err
-	}
-
-	if m.Payer != nil {
-		if err := m.Payer.Validate(formats); err != nil {
-			if ve, ok := err.(*errors.Validation); ok {
-				return ve.ValidateName("payer")
-			}
-			return err
-		}
 	}
 
 	return nil

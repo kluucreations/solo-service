@@ -28,7 +28,8 @@ func main() {
 
 	solo.Configure(api, service)
 	server := restapi.NewServer(api)
-
+	// hardcode port to 8080 for ease and demonstrative purpose
+	server.Port = 8080
 	// gracefully shutdown server
 	defer func() {
 		log.Println("shutting down...")

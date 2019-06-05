@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Loan loan
+// Loan Loan model
 // swagger:model loan
 type Loan struct {
 
@@ -23,7 +23,7 @@ type Loan struct {
 
 	// borrower
 	// Required: true
-	Borrower *User `json:"borrower"`
+	Borrower *Borrower `json:"borrower"`
 
 	// created at
 	// Required: true

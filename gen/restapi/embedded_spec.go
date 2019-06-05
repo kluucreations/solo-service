@@ -49,6 +49,7 @@ func init() {
         ],
         "responses": {
           "200": {
+            "description": "Success",
             "schema": {
               "type": "array",
               "items": {
@@ -56,8 +57,15 @@ func init() {
               }
             }
           },
-          "403": {},
-          "404": {}
+          "403": {
+            "description": "Loan is not assigned to authorized Lender"
+          },
+          "404": {
+            "description": "Loan not found."
+          },
+          "500": {
+            "description": "Server Error"
+          }
         }
       }
     },
@@ -96,12 +104,19 @@ func init() {
         ],
         "responses": {
           "200": {
+            "description": "Success",
             "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/loan"
               }
             }
+          },
+          "403": {
+            "description": "Authorized user is not a Lender."
+          },
+          "500": {
+            "description": "Server Error"
           }
         }
       }
@@ -109,6 +124,7 @@ func init() {
   },
   "definitions": {
     "amount": {
+      "description": "Amount object",
       "type": "object",
       "required": [
         "iso_currency_code",
@@ -116,130 +132,15 @@ func init() {
       ],
       "properties": {
         "amount": {
-          "type": [
-            "string",
-            "number"
-          ]
+          "type": "number"
         },
         "iso_currency_code": {
           "type": "integer"
         }
       }
     },
-    "loan": {
-      "type": "object",
-      "required": [
-        "id",
-        "name",
-        "borrower",
-        "guid",
-        "amount",
-        "created_at",
-        "updated_at"
-      ],
-      "properties": {
-        "amount": {
-          "$ref": "#/definitions/amount"
-        },
-        "borrower": {
-          "$ref": "#/definitions/user"
-        },
-        "created_at": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "end_at": {
-          "type": "string"
-        },
-        "guid": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "start_at": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
-        }
-      }
-    },
-    "payment": {
-      "type": "object",
-      "required": [
-        "id",
-        "loan_id",
-        "guid",
-        "amount",
-        "status",
-        "payment_at",
-        "payee",
-        "payer",
-        "breakdown",
-        "created_at",
-        "updated_at"
-      ],
-      "properties": {
-        "amount": {
-          "$ref": "#/definitions/amount"
-        },
-        "breakdown": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "name",
-              "amount"
-            ],
-            "properties": {
-              "amount": {
-                "$ref": "#/definitions/amount"
-              },
-              "name": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "guid": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer"
-        },
-        "loan_id": {
-          "type": "integer"
-        },
-        "payee": {
-          "$ref": "#/definitions/user"
-        },
-        "payer": {
-          "$ref": "#/definitions/user"
-        },
-        "payment_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "status": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "user": {
+    "borrower": {
+      "description": "Borrower model",
       "type": "object",
       "required": [
         "id",
@@ -274,6 +175,156 @@ func init() {
         },
         "updated_at": {
           "type": "string"
+        }
+      }
+    },
+    "lender": {
+      "description": "Lender model",
+      "type": "object",
+      "required": [
+        "id",
+        "first_name",
+        "last_name",
+        "guid",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "loan": {
+      "description": "Loan model",
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "borrower",
+        "guid",
+        "amount",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/amount"
+        },
+        "borrower": {
+          "$ref": "#/definitions/borrower"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "end_at": {
+          "type": "string"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "payment": {
+      "description": "Payment model",
+      "type": "object",
+      "required": [
+        "id",
+        "loan_id",
+        "guid",
+        "amount",
+        "status",
+        "payment_at",
+        "borrower",
+        "lender",
+        "breakdown",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/amount"
+        },
+        "borrower": {
+          "$ref": "#/definitions/borrower"
+        },
+        "breakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "amount"
+            ],
+            "properties": {
+              "amount": {
+                "$ref": "#/definitions/amount"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "lender": {
+          "$ref": "#/definitions/lender"
+        },
+        "loan_id": {
+          "type": "integer"
+        },
+        "payment_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     }
@@ -311,6 +362,7 @@ func init() {
         ],
         "responses": {
           "200": {
+            "description": "Success",
             "schema": {
               "type": "array",
               "items": {
@@ -318,8 +370,15 @@ func init() {
               }
             }
           },
-          "403": {},
-          "404": {}
+          "403": {
+            "description": "Loan is not assigned to authorized Lender"
+          },
+          "404": {
+            "description": "Loan not found."
+          },
+          "500": {
+            "description": "Server Error"
+          }
         }
       }
     },
@@ -358,12 +417,19 @@ func init() {
         ],
         "responses": {
           "200": {
+            "description": "Success",
             "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/loan"
               }
             }
+          },
+          "403": {
+            "description": "Authorized user is not a Lender."
+          },
+          "500": {
+            "description": "Server Error"
           }
         }
       }
@@ -371,6 +437,7 @@ func init() {
   },
   "definitions": {
     "amount": {
+      "description": "Amount object",
       "type": "object",
       "required": [
         "iso_currency_code",
@@ -378,130 +445,15 @@ func init() {
       ],
       "properties": {
         "amount": {
-          "type": [
-            "string",
-            "number"
-          ]
+          "type": "number"
         },
         "iso_currency_code": {
           "type": "integer"
         }
       }
     },
-    "loan": {
-      "type": "object",
-      "required": [
-        "id",
-        "name",
-        "borrower",
-        "guid",
-        "amount",
-        "created_at",
-        "updated_at"
-      ],
-      "properties": {
-        "amount": {
-          "$ref": "#/definitions/amount"
-        },
-        "borrower": {
-          "$ref": "#/definitions/user"
-        },
-        "created_at": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "end_at": {
-          "type": "string"
-        },
-        "guid": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "start_at": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string"
-        }
-      }
-    },
-    "payment": {
-      "type": "object",
-      "required": [
-        "id",
-        "loan_id",
-        "guid",
-        "amount",
-        "status",
-        "payment_at",
-        "payee",
-        "payer",
-        "breakdown",
-        "created_at",
-        "updated_at"
-      ],
-      "properties": {
-        "amount": {
-          "$ref": "#/definitions/amount"
-        },
-        "breakdown": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": [
-              "name",
-              "amount"
-            ],
-            "properties": {
-              "amount": {
-                "$ref": "#/definitions/amount"
-              },
-              "name": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "created_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "guid": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer"
-        },
-        "loan_id": {
-          "type": "integer"
-        },
-        "payee": {
-          "$ref": "#/definitions/user"
-        },
-        "payer": {
-          "$ref": "#/definitions/user"
-        },
-        "payment_at": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "status": {
-          "type": "string"
-        },
-        "updated_at": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "user": {
+    "borrower": {
+      "description": "Borrower model",
       "type": "object",
       "required": [
         "id",
@@ -536,6 +488,156 @@ func init() {
         },
         "updated_at": {
           "type": "string"
+        }
+      }
+    },
+    "lender": {
+      "description": "Lender model",
+      "type": "object",
+      "required": [
+        "id",
+        "first_name",
+        "last_name",
+        "guid",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "loan": {
+      "description": "Loan model",
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "borrower",
+        "guid",
+        "amount",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/amount"
+        },
+        "borrower": {
+          "$ref": "#/definitions/borrower"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "end_at": {
+          "type": "string"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "start_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "payment": {
+      "description": "Payment model",
+      "type": "object",
+      "required": [
+        "id",
+        "loan_id",
+        "guid",
+        "amount",
+        "status",
+        "payment_at",
+        "borrower",
+        "lender",
+        "breakdown",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/amount"
+        },
+        "borrower": {
+          "$ref": "#/definitions/borrower"
+        },
+        "breakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "amount"
+            ],
+            "properties": {
+              "amount": {
+                "$ref": "#/definitions/amount"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "guid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "lender": {
+          "$ref": "#/definitions/lender"
+        },
+        "loan_id": {
+          "type": "integer"
+        },
+        "payment_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     }
