@@ -51,13 +51,16 @@ There is currently only two endpoints declared:
 Endpoint /v1/loans has optional query parameters to specify pagination (page, perPage), ascending/descending order of results and the value to sort by (amount, end_at and score)
 
 # Train of Thought
-## Go
+## Methodology
+
 The first thing I wanted to have defined was the OpenAPI Specifications.
 Once I got the json specs created, I was able to generate server code to re-use models defined.
 You can view the specifications here:
 https://github.com/kluucreations/solo-service/blob/master/swagger/api.json
 
 http://localhost:8080/docs is rendering the same exact document but in a user friendly way.
+
+## Go
 
 I opted to go with Go for the following reasons:
 1) Go is currently my most fluent programming language
