@@ -1,0 +1,268 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Solo Service API",
+      "version": "1.0"
+    },
+    "host": "example.com",
+    "paths": {
+      "/v1/loan/{loan_id}/payments": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/payment"
+                }
+              }
+            },
+            "403": {
+              "description": ""
+            },
+            "404": {
+              "description": ""
+            }
+          },
+          "summary": "Retrieve payments for a loan",
+          "description": "Retrieve payments for a loan",
+          "parameters": [
+            {
+              "in": "query",
+              "name": "page",
+              "type": "integer"
+            },
+            {
+              "in": "query",
+              "name": "per_page",
+              "type": "integer"
+            },
+            {
+              "in": "path",
+              "name": "loan_id",
+              "type": "integer",
+              "required": true
+            }
+          ]
+        }
+      },
+      "/v1/loans": {
+        "get": {
+          "responses": {
+            "200": {
+              "description": "",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/loan"
+                }
+              }
+            }
+          },
+          "parameters": [
+            {
+              "in": "query",
+              "name": "page",
+              "type": "integer"
+            },
+            {
+              "in": "query",
+              "name": "per_page",
+              "type": "integer"
+            },
+            {
+              "in": "query",
+              "name": "asc",
+              "type": "boolean",
+              "default": false,
+              "description": "set to true if ascending; else descending."
+            },
+            {
+              "in": "query",
+              "name": "order",
+              "type": "string",
+              "enum": [
+                "amount",
+                "end_at",
+                "score"
+              ],
+              "description": "sorting field"
+            }
+          ],
+          "summary": "Retrieve Loans"
+        }
+      }
+    },
+    "definitions": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "middle_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "guid": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "first_name",
+          "last_name",
+          "guid",
+          "score",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "loan": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "borrower": {
+            "$ref": "#/definitions/user"
+          },
+          "guid": {
+            "type": "string"
+          },
+          "amount": {
+            "$ref": "#/definitions/amount"
+          },
+          "start_at": {
+            "type": "string"
+          },
+          "end_at": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "updated_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "borrower",
+          "guid",
+          "amount",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "payment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "loan_id": {
+            "type": "integer"
+          },
+          "guid": {
+            "type": "string"
+          },
+          "amount": {
+            "$ref": "#/definitions/amount"
+          },
+          "status": {
+            "type": "string"
+          },
+          "payment_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "payee": {
+            "$ref": "#/definitions/user"
+          },
+          "payer": {
+            "$ref": "#/definitions/user"
+          },
+          "breakdown": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "amount": {
+                  "$ref": "#/definitions/amount"
+                }
+              },
+              "required": [
+                "name",
+                "amount"
+              ]
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "loan_id",
+          "guid",
+          "amount",
+          "status",
+          "payment_at",
+          "payee",
+          "payer",
+          "breakdown",
+          "created_at",
+          "updated_at"
+        ]
+      },
+      "amount": {
+        "type": "object",
+        "properties": {
+          "iso_currency_code": {
+            "type": "integer"
+          },
+          "amount": {
+            "type": [
+              "string",
+              "number"
+            ]
+          }
+        },
+        "required": [
+          "iso_currency_code",
+          "amount"
+        ]
+      }
+    }
+  }
