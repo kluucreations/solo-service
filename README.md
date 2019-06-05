@@ -15,7 +15,10 @@ I created a join table (lender_loans) to allow RDS to enforce data integrity. By
 
 Response objects can be view inside OpenAPI Specifications:
 
-https://github.com/kluucreations/solo-service/blob/master/swagger/api.json
+You can load swagger editor and copy/paste the json blob into it for a more user friendly view:
+
+copy raw contents in : https://github.com/kluucreations/solo-service/blob/master/swagger/api.json
+paste body into swagger editor and convert to yml:  https://editor.swagger.io/
 
 
 # Installation
