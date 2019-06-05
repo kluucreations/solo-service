@@ -99,3 +99,4 @@ If I had more time, I would try to accomplish the follow:
 2) Write unit tests for coverage
 3) Implemented currency model (iso_currency_code + amount)
 4) Allow multiple co-borrowers to allow borrowers to bump up their SoLo score
+5) Opted for a real relational database (PostgreSQL) and create a docker-compose file with schema migrations
